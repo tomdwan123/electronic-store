@@ -14,7 +14,6 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 @RequestMapping(RequestMappingConstant.REPORT_PATH)
 @RequiredArgsConstructor
-// todo: ROLE_CUSTOMER
 public class ReportController {
 
     private final ReportService service;

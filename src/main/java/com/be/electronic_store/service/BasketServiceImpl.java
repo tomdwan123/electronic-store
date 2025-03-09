@@ -1,5 +1,6 @@
 package com.be.electronic_store.service;
 
+import com.be.electronic_store.constant.RoleEnum;
 import com.be.electronic_store.entity.Basket;
 import com.be.electronic_store.exception.ExceptionFactory;
 import com.be.electronic_store.mapper.BasketMapper;
@@ -20,12 +21,16 @@ public class BasketServiceImpl implements BasketService {
 
     private final BasketMapper mapper;
 
+    private final UserService userService;
+
     private final BasketRepository repository;
 
     private final ReentrantReadWriteLock rwLock = new ReentrantReadWriteLock();
 
     @Override
-    public List<BasketDTO> getBasketsByUserId(Long userId) {
+    public List<BasketDTO> getBasketsByUserId(long userId) {
+
+        userService.checkPermission(userId, RoleEnum.CUSTOMER);
 
         rwLock.readLock().lock();
         try {
@@ -38,7 +43,9 @@ public class BasketServiceImpl implements BasketService {
     }
 
     @Override
-    public BasketDTO addProductToBasket(BasketDTO basketDTO) {
+    public BasketDTO addProductToBasket(long userId, BasketDTO basketDTO) {
+
+        userService.checkPermission(userId, RoleEnum.CUSTOMER);
 
         rwLock.writeLock().lock();
         try {
@@ -60,7 +67,9 @@ public class BasketServiceImpl implements BasketService {
     }
 
     @Override
-    public void deleteProductFromBasket(BasketDTO basketDTO) {
+    public void deleteProductFromBasket(long userId, BasketDTO basketDTO) {
+
+        userService.checkPermission(userId, RoleEnum.CUSTOMER);
 
         rwLock.writeLock().lock();
         try {

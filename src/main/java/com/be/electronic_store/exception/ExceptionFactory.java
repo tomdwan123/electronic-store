@@ -22,4 +22,8 @@ public class ExceptionFactory {
     public static BadRequestException badRequestException(String message) {
         return new BadRequestException(message);
     }
+
+    public static ForbiddenException forbiddenException(String message) {
+        return new ForbiddenException(message);
+    }
 }

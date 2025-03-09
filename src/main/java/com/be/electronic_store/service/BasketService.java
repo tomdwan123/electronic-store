@@ -6,9 +6,9 @@ import java.util.List;
 
 public interface BasketService {
 
-    List<BasketDTO> getBasketsByUserId(Long userId);
+    List<BasketDTO> getBasketsByUserId(long userId);
 
-    BasketDTO addProductToBasket(BasketDTO basketDTO);
+    BasketDTO addProductToBasket(long userId, BasketDTO basketDTO);
 
-    void deleteProductFromBasket(BasketDTO basketDTO);
+    void deleteProductFromBasket(long userId, BasketDTO basketDTO);
 }

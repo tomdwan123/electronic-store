@@ -1,5 +1,6 @@
 package com.be.electronic_store.service;
 
+import com.be.electronic_store.constant.RoleEnum;
 import com.be.electronic_store.entity.ProductDiscountDeal;
 import com.be.electronic_store.exception.ExceptionFactory;
 import com.be.electronic_store.mapper.ProductDiscountDealMapper;
@@ -19,12 +20,16 @@ public class ProductDiscountDealServiceImpl implements ProductDiscountDealServic
 
     private final ProductDiscountDealMapper mapper;
 
+    private final UserService userService;
+
     private final ProductDiscountDealRepository repository;
 
     private final ReentrantReadWriteLock rwLock = new ReentrantReadWriteLock();
 
     @Override
-    public ProductDiscountDealDTO addProductDiscountDeal(ProductDiscountDealDTO productDiscountDealDTO) {
+    public ProductDiscountDealDTO addProductDiscountDeal(long userId, ProductDiscountDealDTO productDiscountDealDTO) {
+
+        userService.checkPermission(userId, RoleEnum.ADMIN);
 
         rwLock.writeLock().lock();
         try {

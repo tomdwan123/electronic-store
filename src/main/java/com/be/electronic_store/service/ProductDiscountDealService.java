@@ -4,5 +4,5 @@ import com.be.electronic_store.model.ProductDiscountDealDTO;
 
 public interface ProductDiscountDealService {
 
-    ProductDiscountDealDTO addProductDiscountDeal(ProductDiscountDealDTO productDiscountDealDTO);
+    ProductDiscountDealDTO addProductDiscountDeal(long userId, ProductDiscountDealDTO productDiscountDealDTO);
 }

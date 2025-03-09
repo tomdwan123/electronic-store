@@ -1,5 +1,6 @@
 package com.be.electronic_store.service;
 
+import com.be.electronic_store.constant.RoleEnum;
 import com.be.electronic_store.entity.User;
 import com.be.electronic_store.exception.ExceptionFactory;
 import com.be.electronic_store.mapper.ReceiptProductMapper;
@@ -18,12 +19,16 @@ public class ReportServiceImpl implements ReportService {
 
     private final ReceiptProductMapper receiptProductMapper;
 
+    private final UserService userService;
+
     private final UserRepository userRepository;
 
     private final ReentrantReadWriteLock rwLock = new ReentrantReadWriteLock();
 
     @Override
     public ReceiptProductDTO getReceiptProducts(long userId) {
+
+        userService.checkPermission(userId, RoleEnum.CUSTOMER);
 
         rwLock.readLock().lock();
         try {

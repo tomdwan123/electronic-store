@@ -20,7 +20,6 @@ import java.util.List;
 @RestController
 @RequestMapping(RequestMappingConstant.PRODUCT_BASKET_PATH)
 @RequiredArgsConstructor
-// todo: ROLE_CUSTOMER
 public class BasketController {
 
     private final BasketService service;
@@ -31,13 +30,15 @@ public class BasketController {
     }
 
     @PostMapping
-    public ResponseEntity<BasketDTO> addProductToBasket(@Valid @RequestBody BasketDTO basketDTO) {
-        return new ResponseEntity<>(service.addProductToBasket(basketDTO), HttpStatus.CREATED);
+    public ResponseEntity<BasketDTO> addProductToBasket(@RequestParam long userId,
+                                                        @Valid @RequestBody BasketDTO basketDTO) {
+        return new ResponseEntity<>(service.addProductToBasket(userId, basketDTO), HttpStatus.CREATED);
     }
 
     @DeleteMapping
-    public ResponseEntity<Void> deleteProductFromBasket(@Valid @RequestBody BasketDTO basketDTO) {
-        service.deleteProductFromBasket(basketDTO);
+    public ResponseEntity<Void> deleteProductFromBasket(@RequestParam long userId,
+                                                        @Valid @RequestBody BasketDTO basketDTO) {
+        service.deleteProductFromBasket(userId, basketDTO);
         return new ResponseEntity<>(HttpStatus.OK);
     }
 }
