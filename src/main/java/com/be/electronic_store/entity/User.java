@@ -47,4 +47,8 @@ public class User extends BaseEntity {
     @NotNull
     @OneToMany(mappedBy = "user", fetch = FetchType.LAZY)
     Set<Basket> baskets;
+
+    @NotNull
+    @OneToMany(mappedBy = "user", fetch = FetchType.LAZY)
+    Set<UserRole> userRoles;
 }
