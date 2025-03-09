@@ -8,6 +8,6 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface ProductDiscountDealRepository extends JpaRepository<ProductDiscountDeal, Long> {
 
-    @Query("SELECT pdd FROM ProductDiscountDeal pdd WHERE pdd.product.id = :productId AND pdd.discountDeal.id = discountDealId")
+    @Query("SELECT pdd FROM ProductDiscountDeal pdd WHERE pdd.product.id = :productId AND pdd.discountDeal.id = :discountDealId")
     ProductDiscountDeal findIdByProductIdAndDiscountDealId(long productId, long discountDealId);
 }

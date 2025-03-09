@@ -32,4 +32,8 @@ public class Product extends BaseEntity {
     @NotNull
     @OneToMany(mappedBy = "product", fetch = FetchType.LAZY)
     Set<ProductDiscountDeal> productDiscountDeals;
+
+    @NotNull
+    @OneToMany(mappedBy = "product", fetch = FetchType.LAZY)
+    Set<Basket> baskets;
 }
