@@ -6,4 +6,8 @@ import org.springframework.data.domain.Page;
 public interface ProductService {
 
     Page<ProductDTO> getProducts();
+
+    ProductDTO addProduct(ProductDTO productDTO);
+
+    void deleteProduct(Long productId);
 }

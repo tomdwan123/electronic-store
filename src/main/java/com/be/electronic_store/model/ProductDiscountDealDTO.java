@@ -1,6 +1,5 @@
 package com.be.electronic_store.model;
 
-import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.NotNull;
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
@@ -16,16 +15,13 @@ import lombok.experimental.FieldDefaults;
 @NoArgsConstructor
 @Builder
 @FieldDefaults(level = AccessLevel.PRIVATE)
-public class ProductDTO {
+public class ProductDiscountDealDTO {
 
     @NotNull
-    Long id;
-
-    @NotEmpty
-    String name;
+    Long productId;
 
     @NotNull
-    double price;
+    Long discountDealId;
 
     int version;
 }

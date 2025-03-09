@@ -15,21 +15,20 @@ import lombok.experimental.SuperBuilder;
 
 import java.util.Set;
 
+
 @Getter
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
 @SuperBuilder
 @Entity
-@Table(name = "product")
+@Table(name = "discount_deal")
 @FieldDefaults(level = AccessLevel.PRIVATE)
-public class Product extends BaseEntity {
+public class DiscountDeal extends BaseEntity {
 
-    String name;
-
-    double price;
+    String description;
 
     @NotNull
-    @OneToMany(mappedBy = "product", fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = "discountDeal", fetch = FetchType.LAZY)
     Set<ProductDiscountDeal> productDiscountDeals;
 }

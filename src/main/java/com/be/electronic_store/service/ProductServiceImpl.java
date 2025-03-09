@@ -1,6 +1,8 @@
 package com.be.electronic_store.service;
 
 import com.be.electronic_store.constant.CommonConstant;
+import com.be.electronic_store.entity.Product;
+import com.be.electronic_store.exception.ExceptionFactory;
 import com.be.electronic_store.mapper.ProductMapper;
 import com.be.electronic_store.model.ProductDTO;
 import com.be.electronic_store.repository.ProductRepository;
@@ -13,6 +15,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Objects;
 import java.util.concurrent.locks.ReentrantReadWriteLock;
 
 @Service
@@ -20,9 +23,9 @@ import java.util.concurrent.locks.ReentrantReadWriteLock;
 @RequiredArgsConstructor
 public class ProductServiceImpl implements ProductService {
 
-    private final ProductMapper productMapper;
+    private final ProductMapper mapper;
 
-    private final ProductRepository productRepository;
+    private final ProductRepository repository;
 
     private final ReentrantReadWriteLock rwLock = new ReentrantReadWriteLock();
 
@@ -31,8 +34,8 @@ public class ProductServiceImpl implements ProductService {
 
         rwLock.readLock().lock();
         try {
-            List<ProductDTO> products = productRepository.findAll().stream()
-                    .map(productMapper::toDto)
+            List<ProductDTO> products = repository.findAll().stream()
+                    .map(mapper::toDto)
                     .toList();
 
             int pageSize = products.isEmpty() ? CommonConstant.PAGE_SIZE_DEFAULT : products.size();
@@ -40,6 +43,36 @@ public class ProductServiceImpl implements ProductService {
             return new PageImpl<>(products, pageable, products.size());
         } finally {
             rwLock.readLock().unlock();
+        }
+    }
+
+    @Override
+    public ProductDTO addProduct(ProductDTO productDTO) {
+
+        rwLock.writeLock().lock();
+        try {
+            if (Objects.isNull(productDTO)) {
+                throw ExceptionFactory.validationException("Product DTO should not be null");
+            }
+
+            // todo: set created_by and updated_by -> ROLE_ADMIN
+            Product product = repository.save(mapper.toEntity(productDTO));
+            return mapper.toDto(product);
+        } finally {
+            rwLock.writeLock().unlock();
+        }
+    }
+
+    @Override
+    public void deleteProduct(Long productId) {
+
+        rwLock.writeLock().lock();
+        try {
+            repository.findById(productId)
+                    .orElseThrow(() -> ExceptionFactory.notFoundException(String.format("Product not found with id: %s", productId)));
+            repository.deleteById(productId);
+        } finally {
+            rwLock.writeLock().unlock();
         }
     }
 }

@@ -1,6 +1,14 @@
 package com.be.electronic_store.entity;
 
-import jakarta.persistence.*;
+import jakarta.persistence.Column;
+import jakarta.persistence.EntityListeners;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+import jakarta.persistence.MappedSuperclass;
+import jakarta.persistence.Temporal;
+import jakarta.persistence.TemporalType;
+import jakarta.persistence.Version;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -38,7 +46,7 @@ public class BaseEntity implements Serializable {
 
     @CreatedBy
     @Column(name = "create_by", length = 100)
-    private String createBy;
+    private int createBy;
 
     @LastModifiedDate
     @Column(name = "update_date")
@@ -47,5 +55,8 @@ public class BaseEntity implements Serializable {
 
     @LastModifiedBy
     @Column(name = "update_by", length = 100)
-    private String updateBy;
+    private int updateBy;
+
+    @Version
+    int version; // Optimistic lock version field
 }
