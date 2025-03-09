@@ -18,7 +18,6 @@ import lombok.experimental.FieldDefaults;
 @FieldDefaults(level = AccessLevel.PRIVATE)
 public class ProductDTO {
 
-    @NotNull
     Long id;
 
     @NotEmpty
