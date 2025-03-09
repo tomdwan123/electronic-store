@@ -1,6 +1,6 @@
 package com.be.electronic_store.entity;
 
-import com.be.electronic_store.model.BasketIdKey;
+import com.be.electronic_store.model.UserRoleIdKey;
 import jakarta.persistence.Column;
 import jakarta.persistence.EmbeddedId;
 import jakarta.persistence.Entity;
@@ -33,24 +33,22 @@ import java.util.Date;
 @NoArgsConstructor
 @SuperBuilder
 @Entity
-@Table(name = "basket")
+@Table(name = "user_role")
 @FieldDefaults(level = AccessLevel.PRIVATE)
-public class Basket implements Serializable {
+public class UserRole implements Serializable {
 
     @EmbeddedId
-    BasketIdKey basketIdKey;
+    UserRoleIdKey userRoleIdKey;
 
     @MapsId("userId")
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
     @JoinColumn(name = "user_id", nullable = false)
     User user;
 
-    @MapsId("productId")
+    @MapsId("roleId")
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
-    @JoinColumn(name = "product_id", nullable = false)
-    Product product;
-
-    int quantity;
+    @JoinColumn(name = "role_id", nullable = false)
+    Role role;
 
     @Column(name = "create_date")
     @Temporal(TemporalType.TIMESTAMP)

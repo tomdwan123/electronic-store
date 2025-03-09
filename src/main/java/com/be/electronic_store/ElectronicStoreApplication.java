@@ -18,46 +18,46 @@ public class ElectronicStoreApplication {
 		SpringApplication.run(ElectronicStoreApplication.class, args);
 	}
 
-	@Bean
-	public CommandLineRunner initDatabase(RoleRepository roleRepository, UserRepository userRepository) {
-
-		return args -> {
-
-			// add roles
-			Role roleAdmin = Role
-					.builder()
-						.name("ROLE_ADMIN")
-					.build();
-			Role roleCustomer = Role
-					.builder()
-						.name("ROLE_CUSTOMER")
-					.build();
-
-			roleRepository.saveAll(List.of(roleAdmin, roleCustomer));
-
-			// add user admin and customer
-			User admin = User
-						.builder()
-							.firstName("Super")
-							.lastName("Admin")
-							.email("admin@gmail.com")
-							.role(roleAdmin)
-						.build();
-			User tom =	User
-							.builder()
-							.firstName("Mr.")
-							.lastName("Tom")
-							.email("tom@gmail.com")
-							.role(roleCustomer)
-						.build();
-			User jerry = User
-						.builder()
-							.firstName("Mr.")
-							.lastName("Jerry")
-							.email("jerry@gmail.com")
-							.role(roleCustomer)
-						.build();
-			userRepository.saveAll(List.of(admin, tom, jerry));
-		};
-	}
+//	@Bean
+//	public CommandLineRunner initDatabase(RoleRepository roleRepository, UserRepository userRepository) {
+//
+//		return args -> {
+//
+//			// add roles
+//			Role roleAdmin = Role
+//					.builder()
+//						.name("ROLE_ADMIN")
+//					.build();
+//			Role roleCustomer = Role
+//					.builder()
+//						.name("ROLE_CUSTOMER")
+//					.build();
+//
+//			roleRepository.saveAll(List.of(roleAdmin, roleCustomer));
+//
+//			// add user admin and customer
+//			User admin = User
+//						.builder()
+//							.firstName("Super")
+//							.lastName("Admin")
+//							.email("admin@gmail.com")
+//							.role(roleAdmin)
+//						.build();
+//			User tom =	User
+//							.builder()
+//							.firstName("Mr.")
+//							.lastName("Tom")
+//							.email("tom@gmail.com")
+//							.role(roleCustomer)
+//						.build();
+//			User jerry = User
+//						.builder()
+//							.firstName("Mr.")
+//							.lastName("Jerry")
+//							.email("jerry@gmail.com")
+//							.role(roleCustomer)
+//						.build();
+//			userRepository.saveAll(List.of(admin, tom, jerry));
+//		};
+//	}
 }
