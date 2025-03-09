@@ -32,7 +32,12 @@ public class ProductDiscountDealServiceImpl implements ProductDiscountDealServic
                 throw ExceptionFactory.validationException("productDiscountDealDTO is null");
             }
 
-            // todo: set created_by and updated_by -> ROLE_ADMIN
+            ProductDiscountDeal existingDiscount = repository.findIdByProductIdAndDiscountDealId(productDiscountDealDTO.getProductId(), productDiscountDealDTO.getDiscountDealId());
+            if (Objects.nonNull(existingDiscount)) {
+                throw ExceptionFactory.conflictException(String.format("Discount %s has already applied to product %s",
+                        existingDiscount.getDiscountDeal().getDescription(), existingDiscount.getProduct().getName()));
+            }
+
             ProductDiscountDeal productDiscountDeal = repository.save(mapper.toEntity(productDiscountDealDTO));
             return mapper.toDto(productDiscountDeal);
         } finally {

@@ -18,6 +18,7 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 @RequestMapping(RequestMappingConstant.PRODUCT_PATH)
 @RequiredArgsConstructor
+// todo: ROLE_ADMIN
 public class ProductController {
 
     private final ProductService service;

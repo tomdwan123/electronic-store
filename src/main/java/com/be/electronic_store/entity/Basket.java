@@ -20,17 +20,19 @@ import lombok.experimental.SuperBuilder;
 @NoArgsConstructor
 @SuperBuilder
 @Entity
-@Table(name = "product_discount_deal")
+@Table(name = "basket")
 @FieldDefaults(level = AccessLevel.PRIVATE)
-public class ProductDiscountDeal extends BaseEntity {
+public class Basket extends BaseEntity {
+
+    @MapsId("userId")
+    @ManyToOne(fetch = FetchType.LAZY, optional = false)
+    @JoinColumn(name = "user_id", nullable = false)
+    User user;
 
     @MapsId("productId")
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
     @JoinColumn(name = "product_id", nullable = false)
     Product product;
 
-    @MapsId("discountDealId")
-    @ManyToOne(fetch = FetchType.LAZY, optional = false)
-    @JoinColumn(name = "discount_deal_id", nullable = false)
-    DiscountDeal discountDeal;
+    int quantity;
 }
