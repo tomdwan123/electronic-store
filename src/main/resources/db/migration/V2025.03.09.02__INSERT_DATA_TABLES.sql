@@ -1,8 +1,8 @@
 BEGIN TRY
 BEGIN TRANSACTION
 
-    INSERT INTO role (name) values ('Admin');
-    INSERT INTO role (name) values ('Customer');
+    INSERT INTO role (name) values ('ADMIN');
+    INSERT INTO role (name) values ('CUSTOMER');
 
     INSERT INTO user (first_name, last_name, email) values ('Super', 'Admin', 'admin@gmail.com');
     INSERT INTO user (first_name, last_name, email) values ('Mr.', 'Tom', 'tom@gmail.com');
