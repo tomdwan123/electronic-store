@@ -33,7 +33,7 @@ import java.util.Date;
 @NoArgsConstructor
 @SuperBuilder
 @Entity
-@Table(name = "product_discount_deal")
+@Table(name = "product_discount_deals")
 @FieldDefaults(level = AccessLevel.PRIVATE)
 public class ProductDiscountDeal implements Serializable {
 

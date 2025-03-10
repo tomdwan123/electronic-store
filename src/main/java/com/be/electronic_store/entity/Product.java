@@ -21,7 +21,7 @@ import java.util.Set;
 @NoArgsConstructor
 @SuperBuilder
 @Entity
-@Table(name = "product")
+@Table(name = "products")
 @FieldDefaults(level = AccessLevel.PRIVATE)
 public class Product extends BaseEntity {
 

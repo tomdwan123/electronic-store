@@ -1,163 +1,89 @@
-BEGIN TRY
-BEGIN TRANSACTION
+CREATE TABLE roles
+(
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    name VARCHAR(255) NOT NULL UNIQUE,
+    create_date TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    create_by INT,
+    update_date TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+    update_by INT,
+    version INT NOT NULL
+);
 
-    CREATE TABLE [role]
-    (
-        [id] [bigint] IDENTITY(1, 1) NOT NULL,
-        [name] [nvarchar](255) NOT NULL,
-        [create_date] [datetime] NULL,
-        [create_by] [bigint] NULL,
-        [update_date] [datetime] NULL,
-        [update_by] [bigint] NULL,
-        [version] [bigint] NULL,
-        CONSTRAINT [PK_role]
-        PRIMARY KEY ([id] ASC)
-    );
+CREATE TABLE users
+(
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    first_name VARCHAR(255) NOT NULL,
+    last_name VARCHAR(255) NOT NULL,
+    email VARCHAR(255) NOT NULL UNIQUE,
+    create_date TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    create_by INT,
+    update_date TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+    update_by INT,
+    version INT NOT NULL
+);
 
-    CREATE TABLE [user]
-    (
-        [id] [bigint] IDENTITY(1, 1) NOT NULL,
-        [first_name] [nvarchar](255) NOT NULL,
-        [last_name] [nvarchar](255) NOT NULL,
-        [email] [nvarchar](255) NOT NULL,
-        [create_date] [datetime] NULL,
-        [create_by] [bigint] NULL,
-        [update_date] [datetime] NULL,
-        [update_by] [bigint] NULL,
-        [version] [bigint] NULL,
-        CONSTRAINT [PK_user]
-        PRIMARY KEY ([id] ASC)
-    );
+CREATE TABLE products
+(
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    name VARCHAR(255) NOT NULL,
+    price DOUBLE NOT NULL,
+    create_date TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    create_by INT,
+    update_date TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+    update_by INT,
+    version INT NOT NULL
+);
 
-    CREATE TABLE [product]
-    (
-        [id] [bigint] IDENTITY(1, 1) NOT NULL,
-        [name] [nvarchar](255) NOT NULL,
-        [price] [double] NOT NULL,
-        [create_date] [datetime] NULL,
-        [create_by] [bigint] NULL,
-        [update_date] [datetime] NULL,
-        [update_by] [bigint] NULL,
-        [version] [bigint] NULL,
-        CONSTRAINT [PK_product]
-        PRIMARY KEY ([id] ASC)
-    );
+CREATE TABLE discount_deals
+(
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    description VARCHAR(255) NOT NULL,
+    create_date TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    create_by INT,
+    update_date TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+    update_by INT,
+    version INT NOT NULL
+);
 
-    CREATE TABLE [discount_deal]
-    (
-        [id] [bigint] IDENTITY(1, 1) NOT NULL,
-        [description] [nvarchar](255) NOT NULL,
-        [create_date] [datetime] NULL,
-        [create_by] [bigint] NULL,
-        [update_date] [datetime] NULL,
-        [update_by] [bigint] NULL,
-        [version] [bigint] NULL,
-        CONSTRAINT [PK_discount_deal]
-        PRIMARY KEY ([id] ASC)
-    );
+CREATE TABLE user_roles
+(
+    user_id INT NOT NULL,
+    role_id INT NOT NULL,
+    create_date TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    create_by INT,
+    update_date TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+    update_by INT,
+    version INT NOT NULL,
+    PRIMARY KEY (user_id, role_id),
+    CONSTRAINT fk_user_roles__users FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE CASCADE,
+    CONSTRAINT fk_user_roles__roles FOREIGN KEY (role_id) REFERENCES roles(id) ON DELETE CASCADE
+);
 
-    CREATE TABLE [user_role]
-    (
-        [user_id] [bigint] IDENTITY(1, 1) NOT NULL,
-        [role_id] [bigint] IDENTITY(1, 1) NOT NULL,
-        [create_date] [datetime] NULL,
-        [create_by] [bigint] NULL,
-        [update_date] [datetime] NULL,
-        [update_by] [bigint] NULL,
-        [version] [bigint] NULL,
-        CONSTRAINT [PK_user_role]
-        PRIMARY KEY
-        (
-            [user_id] ASC, [role_id] ASC
-        )
-    );
+CREATE TABLE baskets
+(
+    user_id INT NOT NULL,
+    product_id INT NOT NULL,
+    quantity INT NOT NULL,
+    create_date TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    create_by INT,
+    update_date TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+    update_by INT,
+    version INT NOT NULL,
+    PRIMARY KEY (user_id, product_id),
+    CONSTRAINT fk_baskets__users FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE CASCADE,
+    CONSTRAINT fk_baskets__products FOREIGN KEY (product_id) REFERENCES products(id) ON DELETE CASCADE
+);
 
-    CREATE TABLE [basket]
-    (
-        [user_id] [bigint] IDENTITY(1, 1) NOT NULL,
-        [product_id] [bigint] IDENTITY(1, 1) NOT NULL,
-        [quantity] [bigint] IDENTITY(1, 1) NOT NULL,
-        [create_date] [datetime] NULL,
-        [create_by] [bigint] NULL,
-        [update_date] [datetime] NULL,
-        [update_by] [bigint] NULL,
-        [version] [bigint] NULL,
-        CONSTRAINT [PK_basket]
-        PRIMARY KEY
-        (
-            [user_id] ASC, [product_id] ASC
-        )
-    );
-
-    CREATE TABLE [product_discount_deal]
-    (
-        [product_id] [bigint] IDENTITY(1, 1) NOT NULL,
-        [discount_deal_id] [bigint] IDENTITY(1, 1) NOT NULL,
-        [create_date] [datetime] NULL,
-        [create_by] [bigint] NULL,
-        [update_date] [datetime] NULL,
-        [update_by] [bigint] NULL,
-        [version] [bigint] NULL,
-        CONSTRAINT [PK_product_discount_deal]
-        PRIMARY KEY
-        (
-            [product_id] ASC, [discount_deal_id] ASC
-        )
-    );
-
-    ALTER TABLE [role]
-        ADD CONSTRAINT [UK_role__name]
-        UNIQUE ([name] ASC);
-
-    ALTER TABLE [user]
-        ADD CONSTRAINT [UK_user__email]
-        UNIQUE ([email] ASC);
-
-    ALTER TABLE [product]
-        ADD CONSTRAINT [UK_product__name]
-        UNIQUE ([name] ASC);
-
-    ALTER TABLE [user_role] WITH CHECK
-        ADD CONSTRAINT [FK_user_role__user]
-        FOREIGN KEY ([user_id])
-        REFERENCES [user] ([id]);
-    ALTER TABLE [user_role] CHECK CONSTRAINT [FK_user_role__user];
-
-    ALTER TABLE [user_role] WITH CHECK
-        ADD CONSTRAINT [FK_user_role__role]
-        FOREIGN KEY ([role_id])
-        REFERENCES [role] ([id]);
-    ALTER TABLE [user_role] CHECK CONSTRAINT [FK_user_role__role];
-
-    ALTER TABLE [basket] WITH CHECK
-        ADD CONSTRAINT [FK_basket__user]
-        FOREIGN KEY ([user_id])
-        REFERENCES [user] ([id]);
-    ALTER TABLE [basket] CHECK CONSTRAINT [FK_basket__user];
-
-    ALTER TABLE [basket] WITH CHECK
-        ADD CONSTRAINT [FK_basket__product]
-        FOREIGN KEY ([product_id])
-        REFERENCES [product] ([id]);
-    ALTER TABLE [basket] CHECK CONSTRAINT [FK_basket__product];
-
-    ALTER TABLE [product_discount_deal] WITH CHECK
-        ADD CONSTRAINT [FK_product_discount_deal__product]
-        FOREIGN KEY ([product_id])
-        REFERENCES [product] ([id]);
-    ALTER TABLE [product_discount_deal] CHECK CONSTRAINT [FK_product_discount_deal__product];
-
-    ALTER TABLE [product_discount_deal] WITH CHECK
-        ADD CONSTRAINT [FK_product_discount_deal__discount_deal]
-        FOREIGN KEY ([discount_deal_id])
-        REFERENCES [discount_deal] ([id]);
-    ALTER TABLE [product_discount_deal] CHECK CONSTRAINT [FK_product_discount_deal__discount_deal];
-
-COMMIT TRANSACTION
-END TRY
-
-BEGIN CATCH
-IF @@TRANCOUNT > 0
-        ROLLBACK TRANSACTION
-    PRINT 'An error occurred: ' + ERROR_MESSAGE();
-END CATCH
+CREATE TABLE product_discount_deals
+(
+    product_id INT NOT NULL,
+    discount_deal_id INT NOT NULL,
+    create_date TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    create_by INT,
+    update_date TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+    update_by INT,
+    version INT NOT NULL,
+    PRIMARY KEY (product_id, discount_deal_id),
+    CONSTRAINT fk_product_discount_deals__discount_deals FOREIGN KEY (discount_deal_id) REFERENCES discount_deals(id) ON DELETE CASCADE,
+    CONSTRAINT fk_product_discount_deals__products FOREIGN KEY (product_id) REFERENCES products(id) ON DELETE CASCADE
+);

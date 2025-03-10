@@ -25,7 +25,7 @@ import java.util.Set;
 @NoArgsConstructor
 @SuperBuilder
 @Entity
-@Table(name = "role")
+@Table(name = "roles")
 @FieldDefaults(level = AccessLevel.PRIVATE)
 public class Role extends BaseEntity {
 

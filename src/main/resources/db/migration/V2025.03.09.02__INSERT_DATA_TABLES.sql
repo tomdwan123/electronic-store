@@ -1,22 +1,10 @@
-BEGIN TRY
-BEGIN TRANSACTION
+INSERT INTO roles (name, version) values ('ADMIN', 0);
+INSERT INTO roles (name, version) values ('CUSTOMER', 0);
 
-    INSERT INTO role (name) values ('ADMIN');
-    INSERT INTO role (name) values ('CUSTOMER');
+INSERT INTO users (first_name, last_name, email, version) values ('Super', 'Admin', 'admin@gmail.com', 0);
+INSERT INTO users (first_name, last_name, email, version) values ('Mr.', 'Tom', 'tom@gmail.com', 0);
+INSERT INTO users (first_name, last_name, email, version) values ('Mr.', 'Jerry', 'jerry@gmail.com', 0);
 
-    INSERT INTO user (first_name, last_name, email) values ('Super', 'Admin', 'admin@gmail.com');
-    INSERT INTO user (first_name, last_name, email) values ('Mr.', 'Tom', 'tom@gmail.com');
-    INSERT INTO user (first_name, last_name, email) values ('Mr.', 'Jerry', 'jerry@gmail.com');
-
-    INSERT INTO user_role (user_id, role_id) values (1, 1);
-    INSERT INTO user_role (user_id, role_id) values (2, 2);
-    INSERT INTO user_role (user_id, role_id) values (3, 2);
-
-COMMIT TRANSACTION
-END TRY
-
-BEGIN CATCH
-IF @@TRANCOUNT > 0
-        ROLLBACK TRANSACTION
-    PRINT 'An error occurred: ' + ERROR_MESSAGE();
-END CATCH
+INSERT INTO user_roles (user_id, role_id, version) values (1, 1, 0);
+INSERT INTO user_roles (user_id, role_id, version) values (2, 2, 0);
+INSERT INTO user_roles (user_id, role_id, version) values (3, 2, 0);

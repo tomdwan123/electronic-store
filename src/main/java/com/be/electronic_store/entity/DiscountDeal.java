@@ -22,7 +22,7 @@ import java.util.Set;
 @NoArgsConstructor
 @SuperBuilder
 @Entity
-@Table(name = "discount_deal")
+@Table(name = "discount_deals")
 @FieldDefaults(level = AccessLevel.PRIVATE)
 public class DiscountDeal extends BaseEntity {
 

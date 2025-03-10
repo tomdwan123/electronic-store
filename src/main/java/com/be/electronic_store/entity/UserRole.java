@@ -33,7 +33,7 @@ import java.util.Date;
 @NoArgsConstructor
 @SuperBuilder
 @Entity
-@Table(name = "user_role")
+@Table(name = "user_roles")
 @FieldDefaults(level = AccessLevel.PRIVATE)
 public class UserRole implements Serializable {
 

@@ -33,7 +33,7 @@ import java.util.Date;
 @NoArgsConstructor
 @SuperBuilder
 @Entity
-@Table(name = "basket")
+@Table(name = "baskets")
 @FieldDefaults(level = AccessLevel.PRIVATE)
 public class Basket implements Serializable {
 
