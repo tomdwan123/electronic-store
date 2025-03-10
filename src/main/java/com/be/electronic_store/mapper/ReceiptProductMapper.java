@@ -13,7 +13,7 @@ public interface ReceiptProductMapper {
     ReceiptProductDTO toModel(User user);
 
     @Named("getTotalPrice")
-    default double getTotalPrice(User user) {
+    default Double getTotalPrice(User user) {
 
         return user.getBaskets().stream()
                 .mapToDouble(basket -> basket.getQuantity() * basket.getProduct().getPrice())

@@ -1,5 +1,6 @@
 package com.be.electronic_store.service;
 
+import com.be.electronic_store.constant.RoleEnum;
 import com.be.electronic_store.entity.User;
 import com.be.electronic_store.exception.ExceptionFactory;
 import com.be.electronic_store.mapper.ReceiptProductMapper;
@@ -18,17 +19,21 @@ public class ReportServiceImpl implements ReportService {
 
     private final ReceiptProductMapper receiptProductMapper;
 
+    private final UserService userService;
+
     private final UserRepository userRepository;
 
     private final ReentrantReadWriteLock rwLock = new ReentrantReadWriteLock();
 
     @Override
-    public ReceiptProductDTO getReceiptProducts(long userId) {
+    public ReceiptProductDTO getReceiptProducts(long customerId, long userId) {
+
+        userService.checkPermission(userId, RoleEnum.CUSTOMER);
 
         rwLock.readLock().lock();
         try {
-            User user = userRepository.findById(userId)
-                    .orElseThrow(() -> ExceptionFactory.notFoundException(String.format("User with id %s not found", userId)));
+            User user = userRepository.findById(customerId)
+                    .orElseThrow(() -> ExceptionFactory.notFoundException(String.format("Customer with id = %s not found", userId)));
             return receiptProductMapper.toModel(user);
         } finally {
             rwLock.readLock().unlock();

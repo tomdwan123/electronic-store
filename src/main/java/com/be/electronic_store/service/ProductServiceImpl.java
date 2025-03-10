@@ -1,6 +1,7 @@
 package com.be.electronic_store.service;
 
 import com.be.electronic_store.constant.CommonConstant;
+import com.be.electronic_store.constant.RoleEnum;
 import com.be.electronic_store.entity.Product;
 import com.be.electronic_store.exception.ExceptionFactory;
 import com.be.electronic_store.mapper.ProductMapper;
@@ -25,12 +26,16 @@ public class ProductServiceImpl implements ProductService {
 
     private final ProductMapper mapper;
 
+    private final UserService userService;
+
     private final ProductRepository repository;
 
     private final ReentrantReadWriteLock rwLock = new ReentrantReadWriteLock();
 
     @Override
-    public Page<ProductDTO> getProducts() {
+    public Page<ProductDTO> getProducts(long userId) {
+
+        userService.checkPermission(userId, RoleEnum.ADMIN);
 
         rwLock.readLock().lock();
         try {
@@ -47,7 +52,9 @@ public class ProductServiceImpl implements ProductService {
     }
 
     @Override
-    public ProductDTO addProduct(ProductDTO productDTO) {
+    public ProductDTO addProduct(long userId, ProductDTO productDTO) {
+
+        userService.checkPermission(userId, RoleEnum.ADMIN);
 
         rwLock.writeLock().lock();
         try {
@@ -55,7 +62,6 @@ public class ProductServiceImpl implements ProductService {
                 throw ExceptionFactory.validationException("Product DTO should not be null");
             }
 
-            // todo: set created_by and updated_by -> ROLE_ADMIN
             Product product = repository.save(mapper.toEntity(productDTO));
             return mapper.toDto(product);
         } finally {
@@ -64,12 +70,15 @@ public class ProductServiceImpl implements ProductService {
     }
 
     @Override
-    public void deleteProduct(Long productId) {
+    public void deleteProduct(long productId, long userId) {
+
+        userService.checkPermission(userId, RoleEnum.ADMIN);
+
+        repository.findById(productId)
+                .orElseThrow(() -> ExceptionFactory.notFoundException(String.format("Product not found with id = %s", productId)));
 
         rwLock.writeLock().lock();
         try {
-            repository.findById(productId)
-                    .orElseThrow(() -> ExceptionFactory.notFoundException(String.format("Product not found with id: %s", productId)));
             repository.deleteById(productId);
         } finally {
             rwLock.writeLock().unlock();

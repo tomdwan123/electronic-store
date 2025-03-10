@@ -33,7 +33,7 @@ import java.util.Date;
 @NoArgsConstructor
 @SuperBuilder
 @Entity
-@Table(name = "user_role")
+@Table(name = "user_roles")
 @FieldDefaults(level = AccessLevel.PRIVATE)
 public class UserRole implements Serializable {
 
@@ -57,7 +57,7 @@ public class UserRole implements Serializable {
 
     @CreatedBy
     @Column(name = "create_by", length = 100)
-    private int createBy;
+    private Integer createBy;
 
     @LastModifiedDate
     @Column(name = "update_date")
@@ -66,8 +66,8 @@ public class UserRole implements Serializable {
 
     @LastModifiedBy
     @Column(name = "update_by", length = 100)
-    private int updateBy;
+    private Integer updateBy;
 
     @Version
-    int version; // Optimistic lock version field
+    Integer version; // Optimistic lock version field
 }

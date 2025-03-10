@@ -4,7 +4,8 @@ import com.be.electronic_store.model.PageableResponseModel;
 import lombok.AccessLevel;
 import lombok.NoArgsConstructor;
 import org.springframework.data.domain.Page;
-import org.springframework.http.*;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 
 @NoArgsConstructor(access = AccessLevel.PRIVATE)
 public class PageResponseUtils {

@@ -2,6 +2,7 @@ package com.be.electronic_store.advice;
 
 import com.be.electronic_store.constant.ExceptionEnum;
 import com.be.electronic_store.exception.ConflictException;
+import com.be.electronic_store.exception.ForbiddenException;
 import com.be.electronic_store.exception.ObjectNotFoundException;
 import com.be.electronic_store.exception.PropertiesProducer;
 import com.be.electronic_store.exception.ValidationException;
@@ -80,6 +81,14 @@ public class ApplicationExceptionHandler {
         String DEFAULT_MESSAGE_ERROR = "There was an error. Please try again later!";
         var problem = ProblemDetail.forStatusAndDetail(HttpStatus.INTERNAL_SERVER_ERROR, DEFAULT_MESSAGE_ERROR);
         problem.setTitle(ExceptionEnum.INTERNAL_SERVER_ERROR_EXCEPTION.name());
+        return problem;
+    }
+
+    @ExceptionHandler(ForbiddenException.class)
+    public ProblemDetail handleException(ForbiddenException ex){
+        var problem = ProblemDetail.forStatusAndDetail(HttpStatus.FORBIDDEN, ex.getMessage());
+        problem.setTitle(ExceptionEnum.PERMISSION_DENIED_EXCEPTION.name());
+        consumePropertiesIfPresent(problem, ex);
         return problem;
     }
 

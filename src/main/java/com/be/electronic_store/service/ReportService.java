@@ -4,5 +4,5 @@ import com.be.electronic_store.model.ReceiptProductDTO;
 
 public interface ReportService {
 
-    ReceiptProductDTO getReceiptProducts(long userId);
+    ReceiptProductDTO getReceiptProducts(long customerId, long userId);
 }

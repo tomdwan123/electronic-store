@@ -4,7 +4,6 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
-import jakarta.validation.constraints.NotNull;
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -22,13 +21,12 @@ import java.util.Set;
 @NoArgsConstructor
 @SuperBuilder
 @Entity
-@Table(name = "discount_deal")
+@Table(name = "discount_deals")
 @FieldDefaults(level = AccessLevel.PRIVATE)
 public class DiscountDeal extends BaseEntity {
 
     String description;
 
-    @NotNull
     @OneToMany(mappedBy = "discountDeal", fetch = FetchType.LAZY)
     Set<ProductDiscountDeal> productDiscountDeals;
 }

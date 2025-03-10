@@ -21,7 +21,7 @@ import java.util.Set;
 public class ReceiptProductDTO {
 
     @NotNull
-    double totalPrice;
+    Double totalPrice;
 
     Set<Basket> baskets;
 }

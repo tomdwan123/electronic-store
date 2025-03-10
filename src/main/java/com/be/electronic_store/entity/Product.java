@@ -21,19 +21,17 @@ import java.util.Set;
 @NoArgsConstructor
 @SuperBuilder
 @Entity
-@Table(name = "product")
+@Table(name = "products")
 @FieldDefaults(level = AccessLevel.PRIVATE)
 public class Product extends BaseEntity {
 
     String name;
 
-    double price;
+    Double price;
 
-    @NotNull
     @OneToMany(mappedBy = "product", fetch = FetchType.LAZY)
     Set<ProductDiscountDeal> productDiscountDeals;
 
-    @NotNull
     @OneToMany(mappedBy = "product", fetch = FetchType.LAZY)
     Set<Basket> baskets;
 }

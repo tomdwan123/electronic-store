@@ -23,7 +23,7 @@ public class BasketDTO {
     @NotNull
     Long productId;
 
-    int quantity;
+    Integer quantity;
 
-    int version;
+    Integer version;
 }

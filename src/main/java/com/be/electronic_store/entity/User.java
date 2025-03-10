@@ -3,8 +3,6 @@ package com.be.electronic_store.entity;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;
-import jakarta.persistence.JoinColumn;
-import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 import jakarta.validation.constraints.NotBlank;
@@ -25,7 +23,7 @@ import java.util.Set;
 @NoArgsConstructor
 @SuperBuilder
 @Entity
-@Table(name = "[user]")
+@Table(name = "users")
 @FieldDefaults(level = AccessLevel.PRIVATE)
 public class User extends BaseEntity {
 
@@ -40,15 +38,9 @@ public class User extends BaseEntity {
     @NotBlank(message = "Email can't be empty")
     String email;
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "role_id", nullable = false)
-    Role role;
-
-    @NotNull
     @OneToMany(mappedBy = "user", fetch = FetchType.LAZY)
     Set<Basket> baskets;
 
-    @NotNull
     @OneToMany(mappedBy = "user", fetch = FetchType.LAZY)
     Set<UserRole> userRoles;
 }

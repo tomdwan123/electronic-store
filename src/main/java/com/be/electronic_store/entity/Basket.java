@@ -33,7 +33,7 @@ import java.util.Date;
 @NoArgsConstructor
 @SuperBuilder
 @Entity
-@Table(name = "basket")
+@Table(name = "baskets")
 @FieldDefaults(level = AccessLevel.PRIVATE)
 public class Basket implements Serializable {
 
@@ -50,7 +50,7 @@ public class Basket implements Serializable {
     @JoinColumn(name = "product_id", nullable = false)
     Product product;
 
-    int quantity;
+    Integer quantity;
 
     @Column(name = "create_date")
     @Temporal(TemporalType.TIMESTAMP)
@@ -59,7 +59,7 @@ public class Basket implements Serializable {
 
     @CreatedBy
     @Column(name = "create_by", length = 100)
-    private int createBy;
+    private Integer createBy;
 
     @LastModifiedDate
     @Column(name = "update_date")
@@ -68,8 +68,8 @@ public class Basket implements Serializable {
 
     @LastModifiedBy
     @Column(name = "update_by", length = 100)
-    private int updateBy;
+    private Integer updateBy;
 
     @Version
-    int version; // Optimistic lock version field
+    Integer version; // Optimistic lock version field
 }
