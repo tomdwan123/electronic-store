@@ -26,14 +26,14 @@ public class ReportServiceImpl implements ReportService {
     private final ReentrantReadWriteLock rwLock = new ReentrantReadWriteLock();
 
     @Override
-    public ReceiptProductDTO getReceiptProducts(long userId) {
+    public ReceiptProductDTO getReceiptProducts(long customerId, long userId) {
 
         userService.checkPermission(userId, RoleEnum.CUSTOMER);
 
         rwLock.readLock().lock();
         try {
-            User user = userRepository.findById(userId)
-                    .orElseThrow(() -> ExceptionFactory.notFoundException(String.format("User with id %s not found", userId)));
+            User user = userRepository.findById(customerId)
+                    .orElseThrow(() -> ExceptionFactory.notFoundException(String.format("Customer with id = %s not found", userId)));
             return receiptProductMapper.toModel(user);
         } finally {
             rwLock.readLock().unlock();

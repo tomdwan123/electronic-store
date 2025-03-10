@@ -8,3 +8,7 @@ INSERT INTO users (first_name, last_name, email, version) values ('Mr.', 'Jerry'
 INSERT INTO user_roles (user_id, role_id, version) values (1, 1, 0);
 INSERT INTO user_roles (user_id, role_id, version) values (2, 2, 0);
 INSERT INTO user_roles (user_id, role_id, version) values (3, 2, 0);
+
+INSERT INTO discount_deals (description, version) values ('Buy 1 get 20% off the second)', 0);
+INSERT INTO discount_deals (description, version) values ('Buy 1 get 30% off the second)', 0);
+INSERT INTO discount_deals (description, version) values ('Buy 1 get 50% off the second)', 0);

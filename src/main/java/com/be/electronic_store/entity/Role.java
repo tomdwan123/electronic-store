@@ -34,7 +34,6 @@ public class Role extends BaseEntity {
     @NotNull
     RoleEnum name;
 
-    @NotNull
     @OneToMany(mappedBy = "role", fetch = FetchType.LAZY)
     Set<UserRole> userRoles;
 }

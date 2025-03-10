@@ -23,5 +23,5 @@ public class ProductDiscountDealDTO {
     @NotNull
     Long discountDealId;
 
-    int version;
+    Integer version;
 }

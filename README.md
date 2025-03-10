@@ -6,7 +6,7 @@ The service requires Java 21. While the project can be built with pre-installed 
 encourage using Maven Wrapper instead, as this is what we use in Docker build
 
 ## Prerequisites
-- Java 21
+- Java 17
 - Maven
 - H2 database
 
@@ -72,9 +72,18 @@ $ mvn clean package
 $ mvn clean package -DskipTests
 ```
 
+## User's permissions
+This application has 2 users with 2 below roles are:
+- `userId = 1` has role `ADMIN`
+- `userId = 2` has role `CUSTOMER`
+
 ## Deployment
 
 ## Metrics
+
+## H2 In-Memory Database
+We can access the local H2 database via below link
+http://localhost:8081/electronic-store/h2-console
 
 ## Logs
 

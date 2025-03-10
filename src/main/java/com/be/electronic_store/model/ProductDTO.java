@@ -24,7 +24,7 @@ public class ProductDTO {
     String name;
 
     @NotNull
-    double price;
+    Double price;
 
-    int version;
+    Integer version;
 }

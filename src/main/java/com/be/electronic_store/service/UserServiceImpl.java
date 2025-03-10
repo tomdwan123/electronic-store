@@ -22,7 +22,7 @@ public class UserServiceImpl implements UserService {
 
         User existUser = userRepository.findByIdAndRole(userId, role);
         if (Objects.isNull(existUser)) {
-            throw ExceptionFactory.forbiddenException(String.format("User %s has no permission", userId));
+            throw ExceptionFactory.forbiddenException(String.format("User with id = %s has no permission", userId));
         }
     }
 }

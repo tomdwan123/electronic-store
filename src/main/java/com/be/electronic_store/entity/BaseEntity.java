@@ -46,7 +46,7 @@ public class BaseEntity implements Serializable {
 
     @CreatedBy
     @Column(name = "create_by", length = 100)
-    private int createBy;
+    private Integer createBy;
 
     @LastModifiedDate
     @Column(name = "update_date")
@@ -55,8 +55,8 @@ public class BaseEntity implements Serializable {
 
     @LastModifiedBy
     @Column(name = "update_by", length = 100)
-    private int updateBy;
+    private Integer updateBy;
 
     @Version
-    int version; // Optimistic lock version field
+    private Integer version; // Optimistic lock version field
 }

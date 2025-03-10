@@ -62,7 +62,6 @@ public class ProductServiceImpl implements ProductService {
                 throw ExceptionFactory.validationException("Product DTO should not be null");
             }
 
-            // todo: set created_by and updated_by -> ROLE_ADMIN
             Product product = repository.save(mapper.toEntity(productDTO));
             return mapper.toDto(product);
         } finally {
@@ -75,10 +74,11 @@ public class ProductServiceImpl implements ProductService {
 
         userService.checkPermission(userId, RoleEnum.ADMIN);
 
+        repository.findById(productId)
+                .orElseThrow(() -> ExceptionFactory.notFoundException(String.format("Product not found with id = %s", productId)));
+
         rwLock.writeLock().lock();
         try {
-            repository.findById(productId)
-                    .orElseThrow(() -> ExceptionFactory.notFoundException(String.format("Product not found with id: %s", productId)));
             repository.deleteById(productId);
         } finally {
             rwLock.writeLock().unlock();

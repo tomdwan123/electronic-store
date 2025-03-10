@@ -27,13 +27,11 @@ public class Product extends BaseEntity {
 
     String name;
 
-    double price;
+    Double price;
 
-    @NotNull
     @OneToMany(mappedBy = "product", fetch = FetchType.LAZY)
     Set<ProductDiscountDeal> productDiscountDeals;
 
-    @NotNull
     @OneToMany(mappedBy = "product", fetch = FetchType.LAZY)
     Set<Basket> baskets;
 }
