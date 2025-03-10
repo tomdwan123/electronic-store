@@ -25,7 +25,7 @@ $ mvn clean package
 
 - Step 2: Start app with JAR file
 ```shell
-$ java -jar target/electronic-store.jar
+$ java -jar target/electronic-store-0.0.1-SNAPSHOT.jar
 ```
 
 ### 2. Use docker
