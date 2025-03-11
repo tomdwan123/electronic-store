@@ -76,17 +76,12 @@ This application has 2 users with 2 below roles are:
 - `userId = 2` has role `CUSTOMER`
 
 ## Postman
-Click to collections to get all APIs of this Electronic Store service
-
-## Deployment
-
-## Metrics
+Click below to import the Postman collection directly and run all APIs of this Electronic Store service
+[![Download Postman Collection](https://run.pstmn.io/button.svg)](https://github.com/tomdwan123/electronic-store/blob/MT-007-refactor-code/src/main/resources/electronic_store.postman_collection.json)
 
 ## H2 In-Memory Database
 We can access the local H2 database via below link
 http://localhost:8081/electronic-store/h2-console
-
-## Logs
 
 
 
