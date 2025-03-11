@@ -77,7 +77,7 @@ This application has 2 users with 2 below roles are:
 
 ## Postman
 Click below to import the Postman collection directly and run all APIs of this Electronic Store service
-[![Run in Postman](https://run.pstmn.io/button.svg)](https://crimson-robot-796750.postman.co/workspace/My-Workspace~0a543df6-71bb-4a3d-8f07-e0178bef70c6/collection/5183235-fb9f3cc1-426e-48aa-9b8a-d7968c68a111?action=share&creator=5183235)
+[![Download Postman Collection](https://run.pstmn.io/button.svg)](https://github.com/tomdwan123/electronic-store/blob/MT-007-refactor-code/src/main/resources/electronic_store.postman_collection.json)
 
 ## H2 In-Memory Database
 We can access the local H2 database via below link
